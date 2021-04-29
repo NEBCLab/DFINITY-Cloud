@@ -209,17 +209,27 @@ actor Main{
         };
     };
 
-        //add approved viewer
-    public shared(msg) func addFileViewer(fileAddr : Text, approvedAddr_ : Principal) : async Text{
+    //add approved viewer
+    // some code using is repeat need to improve
+    public shared(msg) func addFileViewer(file_name : Text, viewerAddr_ : Principal) : async Text{
         //have account
-        if(haveAccount){
+        if(haveAccount(msg.caller)){
             //file exit
-            switch(fileAddress_Owner.get(fileAddr)){
+            switch(name_owner.get(file_name)){
                 case(?owner){
                     //is owner
-                    assert(msg.caller == owner, "no right to change");
-                    //viewer
-                    viewer.get(fileAddr).put(approvedAddr_, true);
+                    assert(msg.caller == owner);
+                    //append
+                    // can be improved inspecting repeat of viewer
+                    switch(viewer.get(file_name)){
+                        case(?viewers){
+                            viewers.put(viewerAddr_, true);
+                            "append viewer successfully";
+                        };
+                        case(_){
+                            "do not have this file";
+                        };
+                    };
                 };
                 case(_){
                     "file does not exist";
@@ -229,6 +239,103 @@ actor Main{
             "doesn't exist this account, please create your account first";
         }
     };
+
+    //delete file viewer
+    public shared(msg) func deleteFileViewer(file_name : Text, viewerAddr_ : Principal) : async Text{
+        //have account
+        if(haveAccount(msg.caller)){
+            //file exit
+            switch(name_owner.get(file_name)){
+                case(?owner){
+                    //is owner
+                    assert(msg.caller == owner);
+                    //append
+                    // can be improved inspecting repeat of viewer
+                    switch(viewer.get(file_name)){
+                        case(?viewers){
+                            //need error handing<<<<<<<<<<<>>>>>>>>>>>
+                            viewers.delete(viewerAddr_);
+                            "delete viewer successfully";
+                        };
+                        case(_){
+                            "do not have this file";
+                        };
+                    };
+                };
+                case(_){
+                    "file does not exist";
+                };
+            };
+        }else{
+            "doesn't exist this account, please create your account first";
+        }
+    };
+
+    //add approved changer
+    // some code using is repeat need to improve
+    public shared(msg) func addFileChanger(file_name : Text, changerAddr_ : Principal) : async Text{
+        //have account
+        if(haveAccount(msg.caller)){
+            //file exit
+            switch(name_owner.get(file_name)){
+                case(?owner){
+                    //is owner
+                    assert(msg.caller == owner);
+                    //append
+                    // can be improved inspecting repeat of viewer
+                    switch(changer.get(file_name)){
+                        case(?changers){
+                            changers.put(changerAddr_, true);
+                            "append changer successfully";
+                        };
+                        case(_){
+                            "do not have this file";
+                        };
+                    };
+                };
+                case(_){
+                    "file does not exist";
+                };
+            };
+        }else{
+            "doesn't exist this account, please create your account first";
+        }
+    };
+
+    //delete file changer
+    public shared(msg) func deleteFileChanger(file_name : Text, changerAddr_ : Principal) : async Text{
+        //have account
+        if(haveAccount(msg.caller)){
+            //file exit
+            switch(name_owner.get(file_name)){
+                case(?owner){
+                    //is owner
+                    assert(msg.caller == owner);
+                    //append
+                    // can be improved inspecting repeat of viewer
+                    switch(changer.get(file_name)){
+                        case(?changers){
+                            //need error handing<<<<<<<<<<<>>>>>>>>>>>
+                            changers.delete(changerAddr_);
+                            "delete changer successfully";
+                        };
+                        case(_){
+                            "do not have this file";
+                        };
+                    };
+                };
+                case(_){
+                    "file does not exist";
+                };
+            };
+        }else{
+            "doesn't exist this account, please create your account first";
+        }
+    };
+
+    //query user list
+
+    //changer query list
 
     //add delegate user
     //delete delegate user
