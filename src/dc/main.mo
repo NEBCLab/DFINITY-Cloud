@@ -3,6 +3,7 @@ import Principal "mo:base/Principal";
 import Text "mo:base/Text";
 import Array "mo:base/Array";
 import Iter "mo:base/Iter";
+import Error "mo:base/Error";
 
 //suppose the file name will not be repeat
 
@@ -122,18 +123,18 @@ actor Main{
                             case(?fileSet){
                                 switch(fileSet.replace(file_name, new_addr)){
                                     case(?v){
-                                        "";
+                                        throw Error.reject("")
                                     };
                                     case(_){
-                                        "change failed";
+                                        throw Error.reject("change failed")
                                     };
                                 };
                                 switch(name_address.replace(file_name, new_addr)){
                                     case(?v){
-                                        "";
+                                        throw Error.reject("")
                                     };
                                     case(_){
-                                        "change failed";
+                                        throw Error.reject("change failed")
                                     };
                                 };
                                 "change file" # file_name #" address successfully, new address" # new_addr;
@@ -337,7 +338,7 @@ actor Main{
 
     //changer query list
 
-    //add delegate user
+    //add deledegate user
     //delete delegate user
     //wheather delegate user
 

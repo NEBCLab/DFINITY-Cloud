@@ -1,19 +1,19 @@
 {
   "canisters": {
-    "fileAsset": {
-      "main": "src/fileAsset/main.mo",
+    "dc": {
+      "main": "src/dc/main.mo",
       "type": "motoko"
     },
-    "fileAsset_assets": {
+    "dc_assets": {
       "dependencies": [
-        "fileAsset"
+        "dc"
       ],
       "frontend": {
-        "entrypoint": "src/fileAsset_assets/public/index.js"
+        "entrypoint": "src/dc_assets/public/index.js"
       },
       "source": [
-        "src/fileAsset_assets/assets",
-        "dist/fileAsset_assets/"
+        "src/dc_assets/assets",
+        "dist/dc_assets/"
       ],
       "type": "assets"
     }
